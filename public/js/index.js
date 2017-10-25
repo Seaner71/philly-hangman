@@ -5,33 +5,70 @@ const wrongGuessesSpan = document.getElementById('wrong-guesses');
 const resultDiv = document.getElementById('result');
 const restartBtn = document.getElementById('restart');
 const lettersDiv = document.getElementById('letters');
-const alpha = [ 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-const answerArr = [{name: "joe"},{name: "bill"}, {name: "mikey"}];
 const progressDiv= document.getElementById('progress')
 const answerPanel = document.getElementById('answer-panel')
 const audio = document.querySelector('audio')
+// Hint HTML Elements - one by one for now
+const hintOne = document.getElementById('hintOne')
+
+
+
+
+const alpha = [ 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+const answerArr = [
+  {firstName: "mike",
+   lastName: 'schmidt',
+   fullName: 'mike schmidt',
+   sport: '⚾',
+   uniformNum: 20,
+   position: 'Third base',
+   status: 'retired',
+   nickName: 'Schmidtty'
+ },
+ {firstName: "allen",
+  lastName: 'iverson',
+  fullName: 'allen iverson',
+  sport: '🏀',
+  uniformNum: 3,
+  position: 'Point Guard',
+  status: 'retired',
+  nickName: 'The Answer'
+  }
+]
 // possibly add a sound for a correct guess abd missed guess
 const correctSound = './sounds/correct-answer.mp3'
 const wrongSound = './sounds/wrong-answer.mp3'
+const loseSound = './sounds/sadtrombone.mp3'
 
-/* notes Oct 24th -  create repo and commit to Github progress
+/* notes Oct 25th
+- logic to add correct guess to the answer - forEach loop to add guess and remove placeholder _
+- style the answer and correct guesses
+- logic to prevent correct guesses from going in the wrongGuesses array -COMPLETE
+-  build out answerArr with hints - template COMPLETE
+- figure out how hints will be displayed - basic format COMPLETE
+- LOW Priority animation on the letters
 */
 
 
 // Game Data
-let triesCounter, answer, wrongGuesses, prevTries, timeoutId;
+let triesCounter, answer, wrongGuesses, timeoutId;
 
 // Game Logic
 function startGame() {
-  triesCounter = 10;
+
   wrongGuesses = [];
-  answer = answerArr[Math.floor((Math.random() * answerArr.length))].name;
+  randomArrnum = Math.floor((Math.random() * answerArr.length))
+  answer = answerArr[randomArrnum].fullName;
+  triesCounter = answer.length;
+  correctGuessesArray  = ['__ '.repeat(answer.length)]
   numTries.textContent = triesCounter;
   wrongGuessesSpan.textContent = '';
-  resultDiv.textContent = 'Welcome to Philly Athlete Guesser'
+  resultDiv.textContent = ''
   lettersDiv.textContent = alpha.join(' ').toUpperCase();
-  progressDiv.textContent = ''
-  answerPanel.innerHTML = '_ '.repeat(answer.length);
+  progressDiv.textContent = '';
+  answerPanel.textContent = correctGuessesArray;
+  // clearHints()
+
 }
 
 
@@ -42,12 +79,18 @@ function startGame() {
 //   }, 3000);
 // }
 
+// function clearHints () {
+//   document.querySelector('hint').innerHTML = ''
+// }
+
+
+
 function renderwrongGuesses() {
   wrongGuessesSpan.textContent = wrongGuesses.sort().join('  ');
 }
 
 function isValidGuess(guess) {
-  return !!guess.match(/[A-z]/gi) && !wrongGuesses.includes(guess);
+  return !!guess.match(/[A-z]/gi) && !wrongGuesses.includes(guess) && guess.length === 1;
 }
 
 // Event Listeners
@@ -64,19 +107,40 @@ form.addEventListener('submit', function(event) {
     numTries.textContent = triesCounter;
 
     // add prev try to list
-     wrongGuesses.push(guess);
-     renderwrongGuesses();
+    if (triesCounter === 8) {
+      hintOne.textContent = 'This person played: ' + answerArr[randomArrnum].sport
+    }
+    if (triesCounter === 6) {
+      hintTwo.textContent = 'This person wore uniform number: ' + answerArr[randomArrnum].uniformNum
+    }
+    if (triesCounter === 4) {
+      hintThree.textContent = 'This person is currently: ' + answerArr[randomArrnum].status
+    }
+    if (triesCounter === 2) {
+      hintFour.textContent = 'This person\'s nickname is: ' + answerArr[randomArrnum].nickName
+    }
     if (triesCounter < 1) {
-      resultDiv.textContent = 'You lost! the Phamous Philly Athlete was:' + answer;
+      resultDiv.textContent = 'You lost! the Phamous Philly Athlete was:' + answer.toUpperCase();
       restartBtn.classList.remove('hidden');
+      audio.src = loseSound;
     }
     if (answer.indexOf(guess) !== -1){
-      progressDiv.textContent = 'You found a letter';
+
+      progressDiv.textContent = `${guess} is correct`;
+      correctGuessesArray.splice(answer.indexOf(guess),1,guess);
       audio.src = correctSound;
       audio.play()
+      /* research replace method - will need to replace the _ with guess letter
+       seems splice will work better replace is a string method*/
+      console.log(answer.indexOf(guess))
+      console.log(guess)
+      correctGuessesArray.splice(answer.indexOf(guess), 1, guess)
+      answerPanel.textContent = correctGuessesArray
     } else {
       audio.src = wrongSound;
       audio.play()
+      wrongGuesses.push(guess);
+      renderwrongGuesses();
     }
 
     if (guess === answer) {

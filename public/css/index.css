@@ -54,11 +54,7 @@
 }
 
 #wrong-guesses {
-  font-size: 1.8em;
-  /*p {
-    margin-bottom: 10px;
-  }
-  li {*/
+    font-size: 1.8em;
     display: inline-block;
     background:lighten(red,15%);
     text-shadow: 1px 2px 0 white;
@@ -66,14 +62,33 @@
     color: red;
     text-transform: uppercase;
     margin-right: 10px;
-    animation: animateletters 2s ease;
-  }
-}
-#wrong-guesses:hover{
-  animation: animateletters 2s ease;
+    animation-name: reverse;
+    animation-duration: 1s;
 }
 
-@@keyframes animateletters {
-  from {transform: translateX(0deg);}
-  to {transform: translateX(180deg);}
+.hint   {
+  text-align: center;
+  animation-name: reverse;
+  animation-duration: 2s;
+}
+
+
+
+h1:hover {
+  animation-name: reverse;
+  animation-duration: 2s;
+}
+
+@keyframes reverse {
+0% {
+  transform: rotateY(0deg);
+  }
+
+50% {
+  transform: rotateY(180deg);
+  }
+
+100% {
+  transform: rotateY(0deg);
+}
 }
