@@ -9,12 +9,12 @@ const progressDiv= document.getElementById('progress')
 const answerPanel = document.getElementById('answer-panel')
 const audio = document.querySelector('audio')
 // Hint HTML Elements - one by one for now
-const hintOne = document.getElementById('hintOne')
 
 
 
 
-const alpha = [ 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+
+// const alpha = [ 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 const answerArr = [
   {firstName: "mike",
    lastName: 'schmidt',
@@ -51,23 +51,26 @@ const loseSound = './sounds/sadtrombone.mp3'
 
 
 // Game Data
-let triesCounter, answer, wrongGuesses, timeoutId;
+let triesCounter, answer, wrongGuesses, timeoutId, correctGuessesArray;
 
 // Game Logic
 function startGame() {
 
   wrongGuesses = [];
   randomArrnum = Math.floor((Math.random() * answerArr.length))
-  answer = answerArr[randomArrnum].fullName;
-  triesCounter = answer.length;
-  correctGuessesArray  = ['__ '.repeat(answer.length)]
+  answer = answerArr[randomArrnum].firstName;
+  triesCounter = 10;
+  // hiddenAnswer = ['_','_','_','_']
+
+  hiddenAnswer = [].concat(answer.split('')).fill('_');
+  // correctGuessesArray  = ['__ '.repeat(answerArr[randomArrnum].firstName.length) + '' + '__ '.repeat(answerArr[randomArrnum].lastName.length) ]
   numTries.textContent = triesCounter;
   wrongGuessesSpan.textContent = '';
   resultDiv.textContent = ''
-  lettersDiv.textContent = alpha.join(' ').toUpperCase();
+  // lettersDiv.textContent = alpha.join(' ').toUpperCase();
   progressDiv.textContent = '';
-  answerPanel.textContent = correctGuessesArray;
-  // clearHints()
+  answerPanel.textContent = hiddenAnswer.join(' ')
+  clearHints()
 
 }
 
@@ -79,10 +82,13 @@ function startGame() {
 //   }, 3000);
 // }
 
-// function clearHints () {
-//   document.querySelector('hint').innerHTML = ''
-// }
-
+function clearHints () {
+  hintOne.textContent = ''
+  hintTwo.textContent = ''
+  hintThree.textContent = ''
+  hintFour.textContent = ''
+  hintFive.textContent = ''
+}
 
 
 function renderwrongGuesses() {
@@ -107,6 +113,7 @@ form.addEventListener('submit', function(event) {
     numTries.textContent = triesCounter;
 
     // add prev try to list
+
     if (triesCounter === 8) {
       hintOne.textContent = 'This person played: ' + answerArr[randomArrnum].sport
     }
@@ -126,16 +133,16 @@ form.addEventListener('submit', function(event) {
     }
     if (answer.indexOf(guess) !== -1){
 
-      progressDiv.textContent = `${guess} is correct`;
-      correctGuessesArray.splice(answer.indexOf(guess),1,guess);
       audio.src = correctSound;
       audio.play()
       /* research replace method - will need to replace the _ with guess letter
        seems splice will work better replace is a string method*/
       console.log(answer.indexOf(guess))
       console.log(guess)
-      correctGuessesArray.splice(answer.indexOf(guess), 1, guess)
-      answerPanel.textContent = correctGuessesArray
+      console.log(hiddenAnswer)
+      hiddenAnswer.splice(answer.indexOf(guess),1,guess)
+      console.log(hiddenAnswer)
+      answerPanel.textContent = hiddenAnswer
     } else {
       audio.src = wrongSound;
       audio.play()
