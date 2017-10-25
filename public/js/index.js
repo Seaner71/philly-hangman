@@ -1,12 +1,12 @@
 // HTML Elements
 const form = document.forms[0];
 const numTries = document.getElementById('tries');
-const prevTriesSpan = document.getElementById('prev-tries');
+const wrongGuessesSpan = document.getElementById('wrong-guesses');
 const resultDiv = document.getElementById('result');
 const restartBtn = document.getElementById('restart');
 const lettersDiv = document.getElementById('letters');
 const alpha = [ 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-const answerArr = [{name: "joe"},{name: "bill"}, {name: "mike"}];
+const answerArr = [{name: "joe"},{name: "bill"}, {name: "mikey"}];
 const progressDiv= document.getElementById('progress')
 const answerPanel = document.getElementById('answer-panel')
 const audio = document.querySelector('audio')
@@ -19,32 +19,35 @@ const wrongSound = './sounds/wrong-answer.mp3'
 
 
 // Game Data
-let triesCounter, answer, prevTries, timeoutId;
+let triesCounter, answer, wrongGuesses, prevTries, timeoutId;
 
 // Game Logic
 function startGame() {
   triesCounter = 10;
-  prevTries = [];
+  wrongGuesses = [];
   answer = answerArr[Math.floor((Math.random() * answerArr.length))].name;
   numTries.textContent = triesCounter;
-  prevTriesSpan.textContent = '';
+  wrongGuessesSpan.textContent = '';
   resultDiv.textContent = 'Welcome to Philly Athlete Guesser'
   lettersDiv.textContent = alpha.join(' ').toUpperCase();
+  progressDiv.textContent = ''
   answerPanel.innerHTML = '_ '.repeat(answer.length);
 }
 
-function clearResultDiv() {
-  timeoutId = setTimeout(function(){
-    resultDiv.textContent = '';
-  }, 3000);
-}
 
-function renderPrevTries() {
-  prevTriesSpan.textContent = prevTries.sort().join(', ');
+/* NOT using this functionality currentl but keeping code in case find a use*/
+// function clearResultDiv() {
+//   timeoutId = setTimeout(function(){
+//     resultDiv.textContent = '';
+//   }, 3000);
+// }
+
+function renderwrongGuesses() {
+  wrongGuessesSpan.textContent = wrongGuesses.sort().join('  ');
 }
 
 function isValidGuess(guess) {
-  return !!guess.match(/[A-z]/gi) && !prevTries.includes(guess);
+  return !!guess.match(/[A-z]/gi) && !wrongGuesses.includes(guess);
 }
 
 // Event Listeners
@@ -53,7 +56,7 @@ form.addEventListener('submit', function(event) {
 
   const guess = form.guess.value.toLowerCase();
 
-  clearTimeout(timeoutId);
+  // clearTimeout(timeoutId);
 
   if (isValidGuess(guess)) {
     // increment tries counter
@@ -61,8 +64,8 @@ form.addEventListener('submit', function(event) {
     numTries.textContent = triesCounter;
 
     // add prev try to list
-     prevTries.push(guess);
-     renderPrevTries();
+     wrongGuesses.push(guess);
+     renderwrongGuesses();
     if (triesCounter < 1) {
       resultDiv.textContent = 'You lost! the Phamous Philly Athlete was:' + answer;
       restartBtn.classList.remove('hidden');
@@ -80,11 +83,11 @@ form.addEventListener('submit', function(event) {
       resultDiv.textContent = 'You guessed it! The answer is ' + answer;
       restartBtn.classList.remove('hidden');
     } else if (guess > answer) {
-      resultDiv.textContent = 'Lower!';
-      clearResultDiv();
+      // resultDiv.textContent = 'Lower!';
+
     } else {
-      resultDiv.textContent = 'Higher!';
-      clearResultDiv();
+      // resultDiv.textContent = 'Higher!';
+      // clearResultDiv();
     }
   } else {
     resultDiv.textContent = 'Input must be a letter that hasn\'t been guessed before.'

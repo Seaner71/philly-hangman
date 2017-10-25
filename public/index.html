@@ -15,18 +15,19 @@
     <div class="form-box">
       <form>
         <label for="guess">Your guess here</label>
-        <input type="text" name="guess">
-        <input type="submit"><br>
+        <input type="text" name="guess" placeholder="Enter a letter...">
+        <input class='submit' type="submit"><br>
       </form>
     </div>
-    <p>Number of tries left: <span id="tries">10</span></p>
-    <p>Wrong Letters</p>
-    <p><span id="prev-tries"></span></p>
-    <br>
+      <p>Number of tries left: <span id="tries">10</span></p>
+      <p>Wrong Letters</p>
+      <p><span id="wrong-guesses"></span></p>
+      <br>
     <div id="result"></div>
-      <button class="hidden" id="restart">Restart</button>
-    </div>
+    <button class="hidden" id="restart">Restart</button>
     <div class="progress" id="progress">
+    </div>
+
 
     </div>
     <div class="answer-panel" id="answer-panel">
