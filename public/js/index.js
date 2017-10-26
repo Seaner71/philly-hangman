@@ -40,13 +40,14 @@ const correctSound = './sounds/correct-answer.mp3'
 const wrongSound = './sounds/wrong-answer.mp3'
 const loseSound = './sounds/sadtrombone.mp3'
 
-/* notes Oct 25th
-- logic to add correct guess to the answer - forEach loop to add guess and remove placeholder _
-- style the answer and correct guesses
-- logic to prevent correct guesses from going in the wrongGuesses array -COMPLETE
--  build out answerArr with hints - template COMPLETE
-- figure out how hints will be displayed - basic format COMPLETE
-- LOW Priority animation on the letters
+/* notes Oct 26th
+- logic to add correct guess to the hidden answer - MOSTLY DONE - display without commaa
+- logic for multiple instances of the same - element - look at Ruby code
+- logic to accoiunt for spaces - should just be a freebie
+- logic to compare the array of correct guess to the answer - ARRAY EQUALITY
+- OPTIONAL: WIN & LOSE screen -
+- LOW Priority animation on the letters style the answer and correct guesses
+- clearing the Hints div on restart and stopping guesses on win/lose
 */
 
 
@@ -60,7 +61,7 @@ function startGame() {
   randomArrnum = Math.floor((Math.random() * answerArr.length))
   answer = answerArr[randomArrnum].firstName;
   triesCounter = 10;
-  // hiddenAnswer = ['_','_','_','_']
+
 
   hiddenAnswer = [].concat(answer.split('')).fill('_');
   // correctGuessesArray  = ['__ '.repeat(answerArr[randomArrnum].firstName.length) + '' + '__ '.repeat(answerArr[randomArrnum].lastName.length) ]
@@ -142,7 +143,7 @@ form.addEventListener('submit', function(event) {
       console.log(hiddenAnswer)
       hiddenAnswer.splice(answer.indexOf(guess),1,guess)
       console.log(hiddenAnswer)
-      answerPanel.textContent = hiddenAnswer
+      answerPanel.textContent = hiddenAnswer.join(' ')
     } else {
       audio.src = wrongSound;
       audio.play()
@@ -150,13 +151,10 @@ form.addEventListener('submit', function(event) {
       renderwrongGuesses();
     }
 
-    if (guess === answer) {
+    if (hiddenAnswer === answer.split('')) {
       resultDiv.textContent = 'You guessed it! The answer is ' + answer;
       restartBtn.classList.remove('hidden');
-    } else if (guess > answer) {
-      // resultDiv.textContent = 'Lower!';
-
-    } else {
+    }  else {
       // resultDiv.textContent = 'Higher!';
       // clearResultDiv();
     }
