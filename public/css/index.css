@@ -1,71 +1,64 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    /*background-color: rgba(0,0,0,0.1);*/
-    font-family: sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  /*background-color: rgba(0,0,0,0.1);*/
+  font-family: sans-serif;
+}
+
+h1, h3 {
+  margin-left: 8px;
+  font-weight: 200;
+}
+h1 {
+  margin-top: 10px;
+}
+
+.container {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.form-box {
+  border: 1px solid black;
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  padding-bottom: 25px;
   }
 
-  h1, h3 {
-    margin-left: 8px;
-    font-weight: 200;
-  }
-  h1 {
-    margin-top: 10px;
-  }
-
-  .container {
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .form-box {
-    border: 1px solid black;
-    width: 50%;
-    margin: 0 auto;
-    padding: 20px;
-    padding-bottom: 25px;
-  }
-
-  .hidden {
+.hidden {
     display: none;
-  }
-
-  .letters {
-    text-align: center;
-    background:#063;
-    margin-top: 300px;
-    bottom:0px;
-    height: 3em;
-    margin-right: auto;
-    margin-left: auto;
-    font-size: 1.5em;
-    padding-top: 0.8em;
-
-  }
-  .progress {
-    text-align: center;
-
-  }
-
-  .answer-panel {
-    text-align: center;
-    text-transform: uppercase;
   }
 .submit {
   cursor: pointer;
 }
 
-#wrong-guesses {
-    font-size: 1.8em;
+#wrong-guesses>li {
     display: inline-block;
-    background:lighten(red,15%);
-    text-shadow: 1px 2px 0 white;
+    font-size: 40px;
+    background: red;
+    text-shadow: 1px 2px 0 red;
     padding: 10px;
-    color: red;
+    color: white;
     text-transform: uppercase;
     margin-right: 10px;
-    animation-name: reverse;
-    animation-duration: 1s;
+    animation: reverse 1s ease;
+    border: 1px solid white;
+    list-style-type: none;
+    white-space: nowrap;
+}
+#correct-guesses>li {
+  display: inline-block;
+  list-style-type: none;
+  white-space: nowrap;
+  font-size: 40px;
+  background: green;
+  padding: 10px;
+  color: white;
+  text-transform: uppercase;
+  margin-right: 10px;
+  animation: reverse 1s ease;
+
 }
 
 .hint   {
@@ -77,10 +70,6 @@
   font-size: 1.4em;
 
 }
-
-
-
-
 @keyframes reverse {
 0% {
   transform: rotateY(0deg);

@@ -12,26 +12,27 @@
     <h1>Welcome to Philly Athlete Guesser</h1>
     <h3>Can you guess which PHamous Phillie, Eagle, Flyer or 76er?</h3>
     <br>
+    <div>
+        <p>Wrong Letters</p>
+    </div>
+    <div>
+        <ul id="wrong-guesses"></ul>
+    </div>
     <div class="form-box">
       <form>
-        <label for="guess">Your guess here</label>
+        <label for="guess">Guess a letter</label>
         <input type="text" name="guess" placeholder="Enter a letter...">
         <input class='submit' type="submit"><br>
       </form>
     </div>
       <p>Number of tries left: <span id="tries">10</span></p>
-      <p>Wrong Letters</p>
-      <p><span id="wrong-guesses"></span></p>
+
       <br>
     <div id="result"></div>
     <button class="hidden" id="restart">Restart</button>
     <div class="progress" id="progress">
     </div>
-
-
-    </div>
-    <div class="answer-panel" id="answer-panel">
-      <p id='correctGuesses'></p>
+      <ul id='correct-guesses'></ul>
     </div>
     <div class="hint">
       <h1>Hints:</h1><br>
@@ -42,9 +43,13 @@
       <p id="hintFive"></p><br>
 
     </div>
-    <!-- <div class="letters" id="letters">
 
-    </div> -->
+    <video width="400" class = 'hidden' >
+      <source src="" type="video/mp4" />
+
+      Your browser does not support HTML5 video.
+    </video>
+
     <audio src="">Your browser does not support this HTML5 <code>audio</code> </audio>
     <!-- JavaScripts -->
     <script src="js/index.js"></script>
