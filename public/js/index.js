@@ -4,8 +4,6 @@ const numTries = document.getElementById('tries');
 const wrongGuessesSpan = document.getElementById('wrong-guesses');
 const resultDiv = document.getElementById('result');
 const restartBtn = document.getElementById('restart');
-const lettersDiv = document.getElementById('letters');
-const progressDiv= document.getElementById('progress')
 const answerPanel = document.getElementById('answer-panel')
 const correctGuesses = document.getElementById('correct-guesses')
 const audio = document.querySelector('audio')
@@ -131,7 +129,6 @@ function startGame() {
   numTries.textContent = triesCounter;
   wrongGuessesSpan.textContent = '';
   resultDiv.textContent = ''
-  progressDiv.textContent = '';
   correctGuesses.innerHTML = '<li>' +  hiddenAnswer.join('</li><li>') +'</li>'
   clearHints()
 
@@ -164,19 +161,19 @@ function isValidGuess(guess) {
 }
 
 function winGame() {
-modalMsg.textContent = 'You guessed it! The answer is ' + answer.toUpperCase();
+modalMsg.textContent = 'You won! The answer Phamous Philly Athlete is: ' + answer.toUpperCase();
 restartBtn.classList.remove('hidden');
 img.src = answerArr[randomArrNum].picPath
 modal.classList.remove('hidden');
 
 }
 function loseGame() {
-resultDiv.textContent = 'You lost! the Phamous Philly Athlete was:' + answer.toUpperCase();
-video.src = './sounds/lose.mp4';
-// modal.classList.remove('hidden');
+modalMsg.textContent = 'You lost! the Phamous Philly Athlete was: ' + answer.toUpperCase();
+img.src = ''
+modal.classList.remove('hidden');
 video.classList.remove('hidden');
 video.play()
-// restartBtn.classList.remove('hidden');
+restartBtn.classList.remove('hidden');
 }
 
 function hideRestartModal() {
@@ -207,7 +204,10 @@ function hintLogic() {
   }
 }
 
+function guessWrong() {
 
+
+}
 
 // Event Listeners
 // modal Event Listeners
@@ -237,7 +237,7 @@ form.addEventListener('submit', function(event) {
     decrementTries()
     // provide hints
     hintLogic()
-
+    //check guess
     if (answer.indexOf(guess) !== -1){
       audio.src = correctSound;
       audio.play()
@@ -248,7 +248,6 @@ form.addEventListener('submit', function(event) {
       }
       correctGuesses.innerHTML = '<li>' +  hiddenAnswer.join('</li><li>') +'</li>'
     } else {
-
       audio.src = wrongSound;
       audio.play()
       wrongGuesses.push(guess);
