@@ -97,7 +97,9 @@ const wrongSound = './sounds/wrong-answer.mp3'
 - clean up code
 - stopping guesses on win/lose
 - add more name to answerArr - class constructor for this array of object
-- modal for lose
+- modal for loses
+- tighten up hints logic
+- size of wrong guess letters vs correct letters
 
 DONE
 - logic to add correct guess to the hidden answer - MOSTLY DONE - display without commaa
@@ -117,14 +119,15 @@ DONE
 // Game Data
 let triesCounter, answer, wrongGuesses ;
 
-// Game Logic
-function startGame() {
 
+///Game Functions
+
+function startGame() {
   wrongGuesses = [];
   randomArrNum = Math.floor((Math.random() * answerArr.length))
   answer = answerArr[randomArrNum].fullName;
   triesCounter = 10;
-  hiddenAnswer = answer.split('').map(letter => letter === ' '? " ": "_");
+  hiddenAnswer = answer.split('').map(letter => letter === ' '? ' ': '_');
   numTries.textContent = triesCounter;
   wrongGuessesSpan.textContent = '';
   resultDiv.textContent = ''
@@ -134,13 +137,12 @@ function startGame() {
 
 }
 
-
-/* NOT using this functionality currentl but keeping code in case find a use*/
 function clearResultDiv() {
   setTimeout(function(){
     resultDiv.textContent = '';
   }, 2000);
 }
+
 
 function clearHints () {
   hintOne.textContent = ''
@@ -151,10 +153,6 @@ function clearHints () {
   video.classList.add('hidden')
   restartBtn.classList.add('hidden')
   form.solve.value = ''
-}
-
-function hideWord(answer) {
-  answer.split('').map(letter => letter === ' '? " ": "_");
 }
 
 function renderwrongGuesses() {
@@ -181,10 +179,35 @@ video.play()
 // restartBtn.classList.remove('hidden');
 }
 
-var hideRestartModal = function() {
+function hideRestartModal() {
   modal.classList.add('hidden');
   startGame();
 }
+
+function decrementTries() {
+  triesCounter--;
+  numTries.textContent = triesCounter;
+}
+
+function hintLogic() {
+  if (triesCounter === 8) {
+    hintOne.textContent = 'This person played: ' + answerArr[randomArrNum].sport
+  }
+  if (triesCounter === 6) {
+    hintTwo.textContent = 'This person wore uniform number: ' + answerArr[randomArrNum].uniformNum
+  }
+  if (triesCounter === 4) {
+    hintThree.textContent = 'This person is currently: ' + answerArr[randomArrNum].status
+  }
+  if (triesCounter === 2) {
+    hintFour.textContent = 'This person\'s nickname is: ' + answerArr[randomArrNum].nickName
+  }
+  if (triesCounter < 1) {
+    loseGame();
+  }
+}
+
+
 
 // Event Listeners
 // modal Event Listeners
@@ -203,37 +226,19 @@ form.addEventListener('submit', function(event) {
       } else {
         resultDiv.textContent = `${solve.toUpperCase()} is not the correct answer`;
         clearResultDiv();
-        triesCounter --;
-        numTries.textContent = triesCounter;
+        decrementTries();
         }
       form.solve.value ='';
     }
   // guess logic
   if (guess) {
+
   if (isValidGuess(guess)) {
-    // increment tries counter only if miss
-    triesCounter--;
-    numTries.textContent = triesCounter;
-
-    if (triesCounter === 8) {
-      hintOne.textContent = 'This person played: ' + answerArr[randomArrNum].sport
-    }
-    if (triesCounter === 6) {
-      hintTwo.textContent = 'This person wore uniform number: ' + answerArr[randomArrNum].uniformNum
-    }
-    if (triesCounter === 4) {
-      hintThree.textContent = 'This person is currently: ' + answerArr[randomArrNum].status
-    }
-    if (triesCounter === 2) {
-      hintFour.textContent = 'This person\'s nickname is: ' + answerArr[randomArrNum].nickName
-    }
-    if (triesCounter < 1) {
-      loseGame();
-
-    }
+    decrementTries()
+    // provide hints
+    hintLogic()
 
     if (answer.indexOf(guess) !== -1){
-      // build fucntions
       audio.src = correctSound;
       audio.play()
       for (i=0;i<answer.length;i++) {
@@ -243,7 +248,6 @@ form.addEventListener('submit', function(event) {
       }
       correctGuesses.innerHTML = '<li>' +  hiddenAnswer.join('</li><li>') +'</li>'
     } else {
-
 
       audio.src = wrongSound;
       audio.play()

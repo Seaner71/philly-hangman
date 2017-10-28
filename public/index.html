@@ -9,30 +9,48 @@
   </head>
   <body>
   <div class="container">
-    <h1>Welcome to Philly Athlete Guesser</h1>
-    <h3>Can you guess which PHamous Phillie, Eagle, Flyer or 76er?</h3>
-    <br>
+    <div id ='modal' class = 'hidden'>
+      <div class="modal-box">
+        <header class="modal-header">
+          <a href="#" class="close">X</a>
+
+        </header>
+        <div class="modal-content" >
+          <img id ='modal-img' width ='350px' height="200px"src='' alt="">
+          </div>
+          <footer class="modal-footer">
+            <p id='modal-msg'></p>
+            <br>
+            <br>
+            <button id='restart'>Play Again!</button>
+        </footer>
+          </div>
+      </div>
+        <h1>Welcome to Philly Athlete Guesser</h1>
+        <h3>Can you guess the name of the Phamous Phillie, Eagle, Flyer or 76er?</h3>
+        <br>
+    <div class="form-box">
+      <form>
+        <input type="text" name="guess" placeholder="Enter a letter...">
+        <input class='submit' type="submit" value ='Guess!'>
+        <input type="text" name="solve" placeholder="Solve.....">
+        <input class='submit' type="submit" value ='Solve!'placeholder="Solve">
+      </form>
+    </div>
+      <p>Tries Remaining: <span id="tries">  </span></p>
+
+      <br>
+    <div id="result"></div>
     <div>
-        <p>Wrong Letters</p>
+        <p>Wrong Letters</p><br>
     </div>
     <div>
         <ul id="wrong-guesses"></ul>
     </div>
-    <div class="form-box">
-      <form>
-        <label for="guess">Guess a letter</label>
-        <input type="text" name="guess" placeholder="Enter a letter...">
-        <input class='submit' type="submit"><br>
-      </form>
-    </div>
-      <p>Number of tries left: <span id="tries">10</span></p>
-
-      <br>
-    <div id="result"></div>
-    <button class="hidden" id="restart">Restart</button>
     <div class="progress" id="progress">
     </div>
-      <ul id='correct-guesses'></ul>
+    <div>
+    <ul id='correct-guesses'></ul>
     </div>
     <div class="hint">
       <h1>Hints:</h1><br>
@@ -44,7 +62,26 @@
 
     </div>
 
-    <video width="400" class = 'hidden' >
+
+    <!-- <div id ='modal' class='hidden'>
+      <div class="modal-box">
+        <header class="modal-header">
+          <a href="#" class="close">X</a>
+
+        </header>
+        <video width="400" class="modal-content">
+          <source src="" type="video/mp4" />
+
+          Your browser does not support HTML5 video.
+        </video>
+
+          <footer class="modal-footer">
+            <button id='restart'>Restart </button>
+        </footer>
+          </div>
+      </div> -->
+
+    <video width="400" class='hidden'>
       <source src="" type="video/mp4" />
 
       Your browser does not support HTML5 video.

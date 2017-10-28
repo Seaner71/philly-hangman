@@ -4,7 +4,10 @@
   /*background-color: rgba(0,0,0,0.1);*/
   font-family: sans-serif;
 }
-
+body {
+  background: #E81828;
+  color: white;
+}
 h1, h3 {
   margin-left: 8px;
   font-weight: 200;
@@ -13,30 +16,42 @@ h1 {
   margin-top: 10px;
 }
 
+#result {
+  font-size: 1.3em;
+}
 .container {
   margin: 0 auto;
   text-align: center;
+
 }
 
 .form-box {
-  border: 1px solid black;
   width: 50%;
   margin: 0 auto;
   padding: 20px;
   padding-bottom: 25px;
+
   }
 
 .hidden {
     display: none;
   }
-.submit {
+input {
   cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 6px;
+  /*display: block;*/
+  /*outline: 10px solid black;*/
 }
-
+.submit {
+  background: #284898;
+  color: white;
+  
+}
 #wrong-guesses>li {
     display: inline-block;
     font-size: 40px;
-    background: red;
+    background: #284898;
     text-shadow: 1px 2px 0 red;
     padding: 10px;
     color: white;
@@ -52,9 +67,9 @@ h1 {
   list-style-type: none;
   white-space: nowrap;
   font-size: 40px;
-  background: green;
+  text-shadow: 1px 2px 0 #284898;
   padding: 10px;
-  color: white;
+  color:  white;
   text-transform: uppercase;
   margin-right: 10px;
   animation: reverse 1s ease;
@@ -70,7 +85,7 @@ h1 {
   font-size: 1.4em;
 
 }
-@keyframes reverse {
+/*@keyframes reverse {
 0% {
   transform: rotateY(0deg);
   }
@@ -82,4 +97,62 @@ h1 {
 100% {
   transform: rotateY(0deg);
 }
+}*/
+
+/* web colors based on player*/
+.eagles-body {
+
+}
+
+
+
+/*MODAL STYLING*/
+
+#modal {
+  background: rgba(0,0,0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.modal-box {
+  height: 400px;
+  width: 400px;
+  margin: 0 auto;
+  position: relative;
+  background: white;
+  top: calc(50vh - 200px);
+  border-radius: 6px;
+  box-shadow: 0 0 15px #333;
+
+}
+a.close {
+  display: block;
+  float: right;
+  font-size: 1.5em;
+  font-family: sans-serif;
+  text-decoration: none;
+  color: black;
+  padding-right: 10px;
+  padding-top: 5px;
+}
+.modal-content {
+  clear: both;
+}
+
+.modal-footer {
+  padding-top: 20px;
+  color: black;
+}
+
+.modal-footer>button {
+  padding: 5px;
+  background: #284898;
+  color: white;
+  width: 33%;
+  height: 3em;
+  border-radius: 6px;
 }
