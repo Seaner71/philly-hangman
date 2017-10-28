@@ -9,7 +9,11 @@ const progressDiv= document.getElementById('progress')
 const answerPanel = document.getElementById('answer-panel')
 const correctGuesses = document.getElementById('correct-guesses')
 const audio = document.querySelector('audio')
-const video = document.querySelector('video'  )
+const video = document.querySelector('video')
+const modal = document.getElementById('modal')
+const img = document.getElementById('modal-img')
+const modalMsg = document.getElementById('modal-msg')
+const modalCloseBtn = document.querySelector('a.close');
 // answer array of objexts - probably should move to a separate file
 const answerArr = [
   {firstName: "mike",
@@ -19,7 +23,8 @@ const answerArr = [
    uniformNum: 20,
    position: 'Third base',
    status: 'Retired',
-   nickName: 'Schmidtty'
+   nickName: 'Schmidtty',
+   picPath:'./img/schmidt.jpg'
  },
  {firstName: "allen",
   lastName: 'iverson',
@@ -28,7 +33,8 @@ const answerArr = [
   uniformNum: 3,
   position: 'Point Guard',
   status: 'Retired',
-  nickName: 'The Answer'
+  nickName: 'The Answer',
+  picPath:'./img/iverson.jpg'
   },
   {firstName: "julius",
    lastName: 'erving',
@@ -37,7 +43,8 @@ const answerArr = [
    uniformNum: 6,
    position: 'Forward',
    status: 'Retired',
-   nickName: 'Doctor J'
+   nickName: 'Doctor J',
+   picPath:'./img/erving.jpg'
     },
    {firstName: "joel",
     lastName: 'embiid',
@@ -46,7 +53,8 @@ const answerArr = [
     uniformNum: 21,
     position: 'Center',
     status: 'Active',
-    nickName: 'The Process'
+    nickName: 'The Process',
+    picPath:'./img/embiid.jpg'
     },
     {firstName: "jimmy",
      lastName: 'rollins',
@@ -55,7 +63,8 @@ const answerArr = [
      uniformNum: 11,
      position: 'Shortstop',
      status: 'Retired',
-     nickName: 'JRoll'
+     nickName: 'JRoll',
+     picPath:'./img/rollins.jpg'
     },
     {firstName: "reggie",
      lastName: 'white',
@@ -64,7 +73,8 @@ const answerArr = [
      uniformNum: 92,
      position: 'Defensive End',
      status: 'Retired',
-     nickName: 'The Minister'
+     nickName: 'The Minister',
+     picPath: './img/white.jpg'
     },
     {firstName: "eric",
      lastName: 'lindros',
@@ -73,23 +83,22 @@ const answerArr = [
      uniformNum: 88,
      position: 'Defensive End',
      status: 'Retired',
-     nickName: 'The Next One'
+     nickName: 'The Next One',
+     picPath: './img/lindros.jpg'
     },
 
 ]
 // possibly add a sound for a correct guess abd missed guess
 const correctSound = './sounds/correct-answer.mp3'
 const wrongSound = './sounds/wrong-answer.mp3'
-const loseSound = './sounds/sadtrombone.mp3'
+// const loseSound = './sounds/sadtrombone.mp3'
 
 /* notes Oct 27th
-- LOW Priority animation on the letters
-- solve button
+- clean up code
 - stopping guesses on win/lose
-- add more name to answerArr
-- modal for the win lose gif
--overall styling
-- timeout on the invalid already guessed piece
+- add more name to answerArr - class constructor for this array of object
+- modal for lose
+
 DONE
 - logic to add correct guess to the hidden answer - MOSTLY DONE - display without commaa
 - logic for multiple instances of the same - element - look at Ruby code
@@ -97,42 +106,41 @@ DONE
 - OPTIONAL: WIN & LOSE screen - got gifs need to add to modal or some other pop up
 - logic to account for spaces - should just be a freebie -
   -style the answer and correct guesses
+  - timeout on the invalid already guessed piece
   - figure out why space is removed when correct letter is guessed
+  - solve button styling and function update
+  - overall styling
+
 */
 
 
 // Game Data
-let triesCounter, answer, wrongGuesses, timeoutId, space;
+let triesCounter, answer, wrongGuesses ;
 
 // Game Logic
 function startGame() {
 
   wrongGuesses = [];
-  randomArrnum = Math.floor((Math.random() * answerArr.length))
-  answer = answerArr[randomArrnum].fullName;
+  randomArrNum = Math.floor((Math.random() * answerArr.length))
+  answer = answerArr[randomArrNum].fullName;
   triesCounter = 10;
-  hiddenAnswer = [].concat(answer.split('')).fill('_');
-  spacePosition= answer.indexOf(' ')
-  space = ' '
-  hiddenAnswer.splice(spacePosition,1,space)
+  hiddenAnswer = answer.split('').map(letter => letter === ' '? " ": "_");
   numTries.textContent = triesCounter;
   wrongGuessesSpan.textContent = '';
   resultDiv.textContent = ''
-  // lettersDiv.textContent = alpha.join(' ').toUpperCase();
   progressDiv.textContent = '';
   correctGuesses.innerHTML = '<li>' +  hiddenAnswer.join('</li><li>') +'</li>'
-  // var ul =document.getElementsByTagName('ul')[0]
   clearHints()
 
 }
 
 
 /* NOT using this functionality currentl but keeping code in case find a use*/
-// function clearResultDiv() {
-//   timeoutId = setTimeout(function(){
-//     resultDiv.textContent = '';
-//   }, 3000);
-// }
+function clearResultDiv() {
+  setTimeout(function(){
+    resultDiv.textContent = '';
+  }, 2000);
+}
 
 function clearHints () {
   hintOne.textContent = ''
@@ -141,68 +149,102 @@ function clearHints () {
   hintFour.textContent = ''
   hintFive.textContent = ''
   video.classList.add('hidden')
+  restartBtn.classList.add('hidden')
+  form.solve.value = ''
 }
 
+function hideWord(answer) {
+  answer.split('').map(letter => letter === ' '? " ": "_");
+}
 
 function renderwrongGuesses() {
   wrongGuessesSpan.innerHTML = '<li>' + wrongGuesses.sort().join('</li><li>') +'</li>';
 }
 
 function isValidGuess(guess) {
-  return !!guess.match(/[A-z]/gi) && !wrongGuesses.includes(guess) && guess.length === 1;
+  return !!guess.match(/[A-z]/gi) && !wrongGuesses.includes(guess) && guess.length === 1 && !hiddenAnswer.includes(guess);
+}
+
+function winGame() {
+modalMsg.textContent = 'You guessed it! The answer is ' + answer.toUpperCase();
+restartBtn.classList.remove('hidden');
+img.src = answerArr[randomArrNum].picPath
+modal.classList.remove('hidden');
+
+}
+function loseGame() {
+resultDiv.textContent = 'You lost! the Phamous Philly Athlete was:' + answer.toUpperCase();
+video.src = './sounds/lose.mp4';
+// modal.classList.remove('hidden');
+video.classList.remove('hidden');
+video.play()
+// restartBtn.classList.remove('hidden');
+}
+
+var hideRestartModal = function() {
+  modal.classList.add('hidden');
+  startGame();
 }
 
 // Event Listeners
+// modal Event Listeners
+modalCloseBtn.addEventListener('click', hideRestartModal);
+
+restartBtn.addEventListener('click', hideRestartModal);
+// guess and solve submit buttons listeners
 form.addEventListener('submit', function(event) {
-   event.preventDefault();
-
+  event.preventDefault();
+  var solve = form.solve.value.toLowerCase().trim();
   const guess = form.guess.value.toLowerCase();
-
-  // clearTimeout(timeoutId);
-
+  //solve logic
+  if (solve) {
+    if (solve === answer){
+        return winGame()
+      } else {
+        resultDiv.textContent = `${solve.toUpperCase()} is not the correct answer`;
+        clearResultDiv();
+        triesCounter --;
+        numTries.textContent = triesCounter;
+        }
+      form.solve.value ='';
+    }
+  // guess logic
+  if (guess) {
   if (isValidGuess(guess)) {
-
-
+    // increment tries counter only if miss
+    triesCounter--;
+    numTries.textContent = triesCounter;
 
     if (triesCounter === 8) {
-      hintOne.textContent = 'This person played: ' + answerArr[randomArrnum].sport
+      hintOne.textContent = 'This person played: ' + answerArr[randomArrNum].sport
     }
     if (triesCounter === 6) {
-      hintTwo.textContent = 'This person wore uniform number: ' + answerArr[randomArrnum].uniformNum
+      hintTwo.textContent = 'This person wore uniform number: ' + answerArr[randomArrNum].uniformNum
     }
     if (triesCounter === 4) {
-      hintThree.textContent = 'This person is currently: ' + answerArr[randomArrnum].status
+      hintThree.textContent = 'This person is currently: ' + answerArr[randomArrNum].status
     }
     if (triesCounter === 2) {
-      hintFour.textContent = 'This person\'s nickname is: ' + answerArr[randomArrnum].nickName
+      hintFour.textContent = 'This person\'s nickname is: ' + answerArr[randomArrNum].nickName
     }
     if (triesCounter < 1) {
-      resultDiv.textContent = 'You lost! the Phamous Philly Athlete was:' + answer.toUpperCase();
-      video.src = './sounds/lose.mp4'
-      video.classList.remove('hidden');
-      video.play()
-      restartBtn.classList.remove('hidden');
-      audio.src = loseSound;
+      loseGame();
 
     }
 
     if (answer.indexOf(guess) !== -1){
-
+      // build fucntions
       audio.src = correctSound;
       audio.play()
-
-
-
       for (i=0;i<answer.length;i++) {
         if (answer[i] === guess) {
-          hiddenAnswer.splice(i,1,guess);
+          hiddenAnswer[i] =guess
         }
       }
       correctGuesses.innerHTML = '<li>' +  hiddenAnswer.join('</li><li>') +'</li>'
     } else {
-      // increment tries counter only if miss
-      triesCounter--;
-      numTries.textContent = triesCounter;
+
+
       audio.src = wrongSound;
       audio.play()
       wrongGuesses.push(guess);
@@ -210,25 +252,20 @@ form.addEventListener('submit', function(event) {
     }
 
     if (hiddenAnswer.join('') === answer) {
-      resultDiv.textContent = 'You guessed it! The answer is ' + answer;
-      restartBtn.classList.remove('hidden');
-      video.src ='./sounds/win.mp4'
-      video.classList.remove('hidden')
-      video.play()
-    }  else {
-      // resultDiv.textContent = 'Higher!';
-      // clearResultDiv();
+        winGame();
     }
+
   } else {
-    resultDiv.textContent = 'Input must be a letter that hasn\'t been guessed before.'
+    resultDiv.textContent = 'Invalid Input or a letter that has already been guessed.';
+    clearResultDiv();
   }
 
   form.guess.value = '';
+  }
 });
 
-restartBtn.addEventListener('click', startGame);
+
 
 window.addEventListener('load', function() {
-  // Game stuff happens here...
   startGame();
 })
