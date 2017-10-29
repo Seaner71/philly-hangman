@@ -84,20 +84,48 @@ const answerArr = [
      nickName: 'The Next One',
      picPath: './img/lindros.jpg'
     },
-
+    {firstName: "carson",
+     lastName: 'wentz',
+     fullName: 'carson wentz',
+     sport: '🏈',
+     uniformNum: 11,
+     position: 'Quarteback',
+     status: 'Active',
+     nickName: 'N/A',
+     picPath: './img/wentz.jpg'
+   },
+   {firstName: "steve",
+    lastName: 'carlton',
+    fullName: 'steve carlton',
+    sport: '⚾',
+    uniformNum: 32,
+    position: 'Pitcher',
+    status: 'Retired',
+    nickName: 'Lefty',
+    picPath:'./img/carlton.jpg'
+  },
+  {firstName: "charles",
+   lastName: 'barkley',
+   fullName: 'charles barkley',
+   sport: '🏀',
+   uniformNum: 34,
+   position: 'Forward',
+   status: 'Retired',
+   nickName: 'Sir Charles',
+   picPath:'./img/barkley.jpg'
+   },
 ]
-// possibly add a sound for a correct guess abd missed guess
+// sound for a correct guess abd missed guess
 const correctSound = './sounds/correct-answer.mp3'
 const wrongSound = './sounds/wrong-answer.mp3'
-// const loseSound = './sounds/sadtrombone.mp3'
+
 
 /* notes Oct 27th
 - clean up code
-- stopping guesses on win/lose
-- add more name to answerArr - class constructor for this array of object
-- modal for loses
+- add more name to answerArr - class constructor for this array of objects
 - tighten up hints logic
-- size of wrong guess letters vs correct letters
+- functions for correct and incorrect guess
+
 
 DONE
 - logic to add correct guess to the hidden answer - MOSTLY DONE - display without commaa
@@ -110,7 +138,9 @@ DONE
   - figure out why space is removed when correct letter is guessed
   - solve button styling and function update
   - overall styling
-
+  - modal for loses -need image
+  - size of wrong guess letters vs correct letters - reduced padding
+  - stopping guesses on win/lose - modal takes care of this
 */
 
 
@@ -147,7 +177,6 @@ function clearHints () {
   hintThree.textContent = ''
   hintFour.textContent = ''
   hintFive.textContent = ''
-  video.classList.add('hidden')
   restartBtn.classList.add('hidden')
   form.solve.value = ''
 }
@@ -161,7 +190,7 @@ function isValidGuess(guess) {
 }
 
 function winGame() {
-modalMsg.textContent = 'You won! The answer Phamous Philly Athlete is: ' + answer.toUpperCase();
+modalMsg.textContent = 'You won! The Phamous Philly Athlete is: ' + answer.toUpperCase();
 restartBtn.classList.remove('hidden');
 img.src = answerArr[randomArrNum].picPath
 modal.classList.remove('hidden');
@@ -169,10 +198,8 @@ modal.classList.remove('hidden');
 }
 function loseGame() {
 modalMsg.textContent = 'You lost! the Phamous Philly Athlete was: ' + answer.toUpperCase();
-img.src = ''
+img.src = './img/lose.jpg'
 modal.classList.remove('hidden');
-video.classList.remove('hidden');
-video.play()
 restartBtn.classList.remove('hidden');
 }
 
@@ -227,6 +254,7 @@ form.addEventListener('submit', function(event) {
         resultDiv.textContent = `${solve.toUpperCase()} is not the correct answer`;
         clearResultDiv();
         decrementTries();
+        hintLogic();
         }
       form.solve.value ='';
     }
