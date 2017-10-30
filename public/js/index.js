@@ -91,7 +91,7 @@ const answerArr = [
      uniformNum: 11,
      position: 'Quarteback',
      status: 'Active',
-     nickName: 'N/A',
+     nickName: 'He needs one make one up',
      picPath: './img/wentz.jpg'
    },
    {firstName: "steve",
