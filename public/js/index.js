@@ -7,146 +7,19 @@ const restartBtn = document.getElementById('restart');
 const answerPanel = document.getElementById('answer-panel')
 const correctGuesses = document.getElementById('correct-guesses')
 const audio = document.querySelector('audio')
-const video = document.querySelector('video')
 const modal = document.getElementById('modal')
 const img = document.getElementById('modal-img')
 const modalMsg = document.getElementById('modal-msg')
 const modalCloseBtn = document.querySelector('a.close');
-// answer array of objexts - probably should move to a separate file
-const answerArr = [
-  {firstName: "mike",
-   lastName: 'schmidt',
-   fullName: 'mike schmidt',
-   sport: '⚾',
-   uniformNum: 20,
-   position: 'Third base',
-   status: 'Retired',
-   nickName: 'Schmidtty',
-   picPath:'./img/schmidt.jpg'
- },
- {firstName: "allen",
-  lastName: 'iverson',
-  fullName: 'allen iverson',
-  sport: '🏀',
-  uniformNum: 3,
-  position: 'Point Guard',
-  status: 'Retired',
-  nickName: 'The Answer',
-  picPath:'./img/iverson.jpg'
-  },
-  {firstName: "julius",
-   lastName: 'erving',
-   fullName: 'julius erving',
-   sport: '🏀',
-   uniformNum: 6,
-   position: 'Forward',
-   status: 'Retired',
-   nickName: 'Doctor J',
-   picPath:'./img/erving.jpg'
-    },
-   {firstName: "joel",
-    lastName: 'embiid',
-    fullName: 'joel embiid',
-    sport: '🏀',
-    uniformNum: 21,
-    position: 'Center',
-    status: 'Active',
-    nickName: 'The Process',
-    picPath:'./img/embiid.jpg'
-    },
-    {firstName: "jimmy",
-     lastName: 'rollins',
-     fullName: 'jimmy rollins',
-     sport: '⚾',
-     uniformNum: 11,
-     position: 'Shortstop',
-     status: 'Retired',
-     nickName: 'JRoll',
-     picPath:'./img/rollins.jpg'
-    },
-    {firstName: "reggie",
-     lastName: 'white',
-     fullName: 'reggie white',
-     sport: '🏈',
-     uniformNum: 92,
-     position: 'Defensive End',
-     status: 'Retired',
-     nickName: 'The Minister',
-     picPath: './img/white.jpg'
-    },
-    {firstName: "eric",
-     lastName: 'lindros',
-     fullName: 'eric lindros',
-     sport: '🏒',
-     uniformNum: 88,
-     position: 'Defensive End',
-     status: 'Retired',
-     nickName: 'The Next One',
-     picPath: './img/lindros.jpg'
-    },
-    {firstName: "carson",
-     lastName: 'wentz',
-     fullName: 'carson wentz',
-     sport: '🏈',
-     uniformNum: 11,
-     position: 'Quarteback',
-     status: 'Active',
-     nickName: 'He needs one. Make one up',
-     picPath: './img/wentz.jpg'
-   },
-   {firstName: "steve",
-    lastName: 'carlton',
-    fullName: 'steve carlton',
-    sport: '⚾',
-    uniformNum: 32,
-    position: 'Pitcher',
-    status: 'Retired',
-    nickName: 'Lefty',
-    picPath:'./img/carlton.jpg'
-  },
-  {firstName: "charles",
-   lastName: 'barkley',
-   fullName: 'charles barkley',
-   sport: '🏀',
-   uniformNum: 34,
-   position: 'Forward',
-   status: 'Retired',
-   nickName: 'Sir Charles',
-   picPath:'./img/barkley.jpg'
-   },
-]
+
 // sound for a correct guess abd missed guess
 const correctSound = './sounds/correct-answer.mp3'
 const wrongSound = './sounds/wrong-answer.mp3'
 
-
-/* notes Oct 27th
-- clean up code
-- add more name to answerArr - class constructor for this array of objects
-- tighten up hints logic
-- functions for correct and incorrect guess
-
-
-DONE
-- logic to add correct guess to the hidden answer - MOSTLY DONE - display without commaa
-- logic for multiple instances of the same - element - look at Ruby code
-- logic to compare the array of correct guess to the answer - ARRAY EQUALITY
-- OPTIONAL: WIN & LOSE screen - got gifs need to add to modal or some other pop up
-- logic to account for spaces - should just be a freebie -
-  -style the answer and correct guesses
-  - timeout on the invalid already guessed piece
-  - figure out why space is removed when correct letter is guessed
-  - solve button styling and function update
-  - overall styling
-  - modal for loses -need image
-  - size of wrong guess letters vs correct letters - reduced padding
-  - stopping guesses on win/lose - modal takes care of this
-*/
-
+// answerArr moved to answers.js linked on html
 
 // Game Data
 let triesCounter, answer, wrongGuesses ;
-
 
 ///Game Functions
 
@@ -154,7 +27,7 @@ function startGame() {
   wrongGuesses = [];
   randomArrNum = Math.floor((Math.random() * answerArr.length))
   answer = answerArr[randomArrNum].fullName;
-  triesCounter = 10;
+  triesCounter = 12;
   hiddenAnswer = answer.split('').map(letter => letter === ' '? ' ': '_');
   numTries.textContent = triesCounter;
   wrongGuessesSpan.textContent = '';
@@ -214,38 +87,39 @@ function decrementTries() {
 }
 
 function hintLogic() {
-  if (triesCounter === 8) {
+  if (triesCounter === 10) {
     hintOne.textContent = 'This person played: ' + answerArr[randomArrNum].sport
   }
-  if (triesCounter === 6) {
+  if (triesCounter === 8) {
     hintTwo.textContent = 'This person wore uniform number: ' + answerArr[randomArrNum].uniformNum
   }
+  if (triesCounter === 6) {
+    hintThree.textContent = 'This person played: ' + answerArr[randomArrNum].position
+  }
   if (triesCounter === 4) {
-    hintThree.textContent = 'This person is currently: ' + answerArr[randomArrNum].status
+    hintFour.textContent = 'This person is currently: ' + answerArr[randomArrNum].status
   }
   if (triesCounter === 2) {
-    hintFour.textContent = 'This person\'s nickname is: ' + answerArr[randomArrNum].nickName
+    hintFive.textContent = 'This person\'s nickname is: ' + answerArr[randomArrNum].nickName
   }
   if (triesCounter < 1) {
     loseGame();
   }
 }
 
-function guessWrong() {
-
-
-}
 
 // Event Listeners
-// modal Event Listeners
+// Modal Event Listeners
 modalCloseBtn.addEventListener('click', hideRestartModal);
 
 restartBtn.addEventListener('click', hideRestartModal);
+
 // guess and solve submit buttons listeners
 form.addEventListener('submit', function(event) {
   event.preventDefault();
   var solve = form.solve.value.toLowerCase().trim();
   const guess = form.guess.value.toLowerCase();
+
   //solve logic
   if (solve) {
     if (solve === answer){
@@ -258,6 +132,7 @@ form.addEventListener('submit', function(event) {
         }
       form.solve.value ='';
     }
+
   // guess logic
   if (guess) {
 

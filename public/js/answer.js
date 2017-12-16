@@ -6,7 +6,8 @@ const answerArr = [
    uniformNum: 20,
    position: 'Third base',
    status: 'Retired',
-   nickName: 'Schmidtty'
+   nickName: 'Schmidtty',
+   picPath:'./img/schmidt.jpg'
  },
  {firstName: "allen",
   lastName: 'iverson',
@@ -15,7 +16,8 @@ const answerArr = [
   uniformNum: 3,
   position: 'Point Guard',
   status: 'Retired',
-  nickName: 'The Answer'
+  nickName: 'The Answer',
+  picPath:'./img/iverson.jpg'
   },
   {firstName: "julius",
    lastName: 'erving',
@@ -24,7 +26,8 @@ const answerArr = [
    uniformNum: 6,
    position: 'Forward',
    status: 'Retired',
-   nickName: 'Doctor J'
+   nickName: 'Doctor J',
+   picPath:'./img/erving.jpg'
     },
    {firstName: "joel",
     lastName: 'embiid',
@@ -33,7 +36,8 @@ const answerArr = [
     uniformNum: 21,
     position: 'Center',
     status: 'Active',
-    nickName: 'The Process'
+    nickName: 'The Process',
+    picPath:'./img/embiid.jpg'
     },
     {firstName: "jimmy",
      lastName: 'rollins',
@@ -42,7 +46,8 @@ const answerArr = [
      uniformNum: 11,
      position: 'Shortstop',
      status: 'Retired',
-     nickName: 'JRoll'
+     nickName: 'JRoll',
+     picPath:'./img/rollins.jpg'
     },
     {firstName: "reggie",
      lastName: 'white',
@@ -51,7 +56,8 @@ const answerArr = [
      uniformNum: 92,
      position: 'Defensive End',
      status: 'Retired',
-     nickName: 'The Minister'
+     nickName: 'The Minister',
+     picPath: './img/white.jpg'
     },
     {firstName: "eric",
      lastName: 'lindros',
@@ -60,14 +66,37 @@ const answerArr = [
      uniformNum: 88,
      position: 'Defensive End',
      status: 'Retired',
-     nickName: 'The Next One'
+     nickName: 'The Next One',
+     picPath: './img/lindros.jpg'
     },
-
+    {firstName: "carson",
+     lastName: 'wentz',
+     fullName: 'carson wentz',
+     sport: '🏈',
+     uniformNum: 11,
+     position: 'Quarteback',
+     status: 'Active',
+     nickName: 'He needs one. Make one up',
+     picPath: './img/wentz.jpg'
+   },
+   {firstName: "steve",
+    lastName: 'carlton',
+    fullName: 'steve carlton',
+    sport: '⚾',
+    uniformNum: 32,
+    position: 'Pitcher',
+    status: 'Retired',
+    nickName: 'Lefty',
+    picPath:'./img/carlton.jpg'
+  },
+  {firstName: "charles",
+   lastName: 'barkley',
+   fullName: 'charles barkley',
+   sport: '🏀',
+   uniformNum: 34,
+   position: 'Forward',
+   status: 'Retired',
+   nickName: 'Sir Charles',
+   picPath:'./img/barkley.jpg'
+   },
 ]
-
-
-
-⚾
-🏈
-🏒
-🏀
