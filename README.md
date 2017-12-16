@@ -9,7 +9,8 @@ It is a one player game with the following rules:
  a. The hint categories are: sport played, uniform number, position played, status (active or retired), nickname
 3. There are 10 athletes that can be guessed
 4. The word can be solved at any point.
-5. A congratulatory message is given to winners and a taunt to losers
+5. Audio confirmation of correct or incorrect guess.
+6. A congratulatory message is given to winners and a taunt to losers
  
 
 
