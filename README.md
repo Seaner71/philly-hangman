@@ -4,8 +4,8 @@ An web application built using JavaScript, HTML and CSS of the classic hangman g
 
 It is a one player game with the following rules:
 
-1. Player has 10 total guesses to name the correct athlete. (both correct and incorrect guesses count but repeat guesses do not)
-2. Every 2 guesses a hint about the identity of the athlete is revealed. 
+1. Player has 12 total guesses to name the correct athlete. (both correct and incorrect guesses count but repeat guesses do not)
+2. Each 2 guesses a hint about the identity of the athlete is revealed. 
  a. The hint categories are: sport played, uniform number, position played, status (active or retired), nickname
 3. There are 10 athletes that can be guessed
 4. The word can be solved at any point.
