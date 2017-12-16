@@ -83,6 +83,10 @@ input {
   font-size: 1.4em;
 }
 
+.panic {
+  font-size: 1.5em;
+  color: yellow;
+}
 /*MODAL STYLING*/
 
 #modal {
