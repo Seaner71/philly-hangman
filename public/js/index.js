@@ -16,7 +16,7 @@ const modalCloseBtn = document.querySelector('a.close');
 const correctSound = './sounds/correct-answer.mp3'
 const wrongSound = './sounds/wrong-answer.mp3'
 
-// answerArr moved to answers.js linked on html
+// answerArr moved to answer.js linked on html
 
 // Game Data
 let triesCounter, answer, wrongGuesses ;
@@ -171,6 +171,7 @@ form.addEventListener('submit', function(event) {
 });
 
 
+//  window onload Event Listener
 
 window.addEventListener('load', function() {
   startGame();
