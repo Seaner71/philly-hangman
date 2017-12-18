@@ -12,9 +12,9 @@ const img = document.getElementById('modal-img')
 const modalMsg = document.getElementById('modal-msg')
 const modalCloseBtn = document.querySelector('a.close');
 
-// sound for a correct guess abd missed guess
-const correctSound = './sounds/correct-answer.mp3'
-const wrongSound = './sounds/wrong-answer.mp3'
+// sound for a correct guess and missed guess
+const correctSound = './public/sounds/correct-answer.mp3'
+const wrongSound = './public/sounds/wrong-answer.mp3'
 
 // answerArr moved to answer.js linked on html
 
@@ -78,7 +78,7 @@ modal.classList.remove('hidden');
 // when triescounter is zero bring up lose modal and restartBtn
 function loseGame() {
 modalMsg.textContent = 'You lost! the Phamous Philly Athlete was: ' + answer.toUpperCase();
-img.src = './img/lose.jpg'
+img.src = './public/img/lose.jpg'
 modal.classList.remove('hidden');
 restartBtn.classList.remove('hidden');
 }

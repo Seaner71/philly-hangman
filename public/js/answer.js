@@ -7,7 +7,7 @@ const answerArr = [
    position: 'Third base',
    status: 'Retired',
    nickName: 'Schmidtty',
-   picPath:'./img/schmidt.jpg'
+   picPath:'./public/img/schmidt.jpg'
  },
  {firstName: "allen",
   lastName: 'iverson',
@@ -17,7 +17,7 @@ const answerArr = [
   position: 'Point Guard',
   status: 'Retired',
   nickName: 'The Answer',
-  picPath:'./img/iverson.jpg'
+  picPath:'./public/img/iverson.jpg'
   },
   {firstName: "julius",
    lastName: 'erving',
@@ -27,7 +27,7 @@ const answerArr = [
    position: 'Forward',
    status: 'Retired',
    nickName: 'Doctor J',
-   picPath:'./img/erving.jpg'
+   picPath:'./public/img/erving.jpg'
     },
    {firstName: "joel",
     lastName: 'embiid',
@@ -37,7 +37,7 @@ const answerArr = [
     position: 'Center',
     status: 'Active',
     nickName: 'The Process',
-    picPath:'./img/embiid.jpg'
+    picPath:'./public/img/embiid.jpg'
     },
     {firstName: "jimmy",
      lastName: 'rollins',
@@ -47,7 +47,7 @@ const answerArr = [
      position: 'Shortstop',
      status: 'Retired',
      nickName: 'JRoll',
-     picPath:'./img/rollins.jpg'
+     picPath:'./public/img/rollins.jpg'
     },
     {firstName: "reggie",
      lastName: 'white',
@@ -57,7 +57,7 @@ const answerArr = [
      position: 'Defensive End',
      status: 'Retired',
      nickName: 'The Minister',
-     picPath: './img/white.jpg'
+     picPath: './public/img/white.jpg'
     },
     {firstName: "eric",
      lastName: 'lindros',
@@ -67,7 +67,7 @@ const answerArr = [
      position: 'Defensive End',
      status: 'Retired',
      nickName: 'The Next One',
-     picPath: './img/lindros.jpg'
+     picPath: './public/img/lindros.jpg'
     },
     {firstName: "carson",
      lastName: 'wentz',
@@ -77,7 +77,7 @@ const answerArr = [
      position: 'Quarteback',
      status: 'Active',
      nickName: 'He needs one. Make one up',
-     picPath: './img/wentz.jpg'
+     picPath: './public/img/wentz.jpg'
    },
    {firstName: "steve",
     lastName: 'carlton',
@@ -87,7 +87,7 @@ const answerArr = [
     position: 'Pitcher',
     status: 'Retired',
     nickName: 'Lefty',
-    picPath:'./img/carlton.jpg'
+    picPath:'./public/img/carlton.jpg'
   },
   {firstName: "charles",
    lastName: 'barkley',
@@ -97,6 +97,6 @@ const answerArr = [
    position: 'Forward',
    status: 'Retired',
    nickName: 'Sir Charles',
-   picPath:'./img/barkley.jpg'
+   picPath:'./public/img/barkley.jpg'
    },
 ]
