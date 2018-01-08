@@ -1,14 +1,18 @@
 // HTML Elements
+// form
 const form = document.forms[0];
+
+// Other HTML Elements
+const audio = document.querySelector('audio');
+const correctGuesses = document.getElementById('correct-guesses');
 const numTries = document.getElementById('tries');
-const wrongGuessesSpan = document.getElementById('wrong-guesses');
 const resultDiv = document.getElementById('result');
 const restartBtn = document.getElementById('restart');
-const answerPanel = document.getElementById('answer-panel')
-const correctGuesses = document.getElementById('correct-guesses')
-const audio = document.querySelector('audio')
-const modal = document.getElementById('modal')
+const wrongGuessesSpan = document.getElementById('wrong-guesses');
+
+// Modal Elements
 const img = document.getElementById('modal-img')
+const modal = document.getElementById('modal')
 const modalMsg = document.getElementById('modal-msg')
 const modalCloseBtn = document.querySelector('a.close');
 
@@ -19,14 +23,14 @@ const wrongSound = './public/sounds/wrong-answer.mp3'
 // answerArr moved to answer.js linked on html
 
 // Game Data
-let triesCounter, answer, wrongGuesses ;
+let answer, triesCounter, wrongGuesses ;
 
 ///Game Functions
 
 function startGame() {
   // reset wrongGuesses
   wrongGuesses = [];
-  // select random answer from array
+  // select random answer from array of objects
   randomArrNum = Math.floor((Math.random() * answerArr.length))
   answer = answerArr[randomArrNum].fullName;
   hiddenAnswer = answer.split('').map(letter => letter === ' '? ' ': '_');
